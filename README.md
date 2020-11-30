@@ -1,0 +1,2 @@
+# EasyParty
+Allows you to create a party through Runelite without having to add people as a friend on Discord. Copy the code generated when you click on "Create party" and send it to someone so they can join off of that party id.
