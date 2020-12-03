@@ -23,12 +23,14 @@ public class EasyPartyPlugin extends Plugin {
     @Inject
     private PartyService partyService;
 
+    private NavigationButton navigationButton;
+
     @Override
     protected void startUp() throws Exception {
         final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "icon.png");
         EasyPartyPanel easyPartyPanel = new EasyPartyPanel(partyService);
 
-        NavigationButton navigationButton = NavigationButton.builder()
+        navigationButton = NavigationButton.builder()
                 .priority(9)
                 .tooltip("EasyParty")
                 .icon(icon)
@@ -36,5 +38,10 @@ public class EasyPartyPlugin extends Plugin {
                 .build();
 
         clientToolbar.addNavigation(navigationButton);
+    }
+
+    @Override
+    protected void shutDown() throws Exception {
+        clientToolbar.removeNavigation(navigationButton);
     }
 }
