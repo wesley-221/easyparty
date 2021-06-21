@@ -78,7 +78,7 @@ public class EasyPartyPanel extends PluginPanel {
                 setErrorLabel(EMPTY_PARTY_ID);
             } else {
                 try {
-                    partyUUID = UUID.fromString(textFieldJoinParty.getText());
+                    partyUUID = UUID.fromString(textFieldJoinParty.getText().trim());
                     partyService.changeParty(partyUUID);
 
                     currentPartyLabel.setText(String.valueOf(partyUUID));
