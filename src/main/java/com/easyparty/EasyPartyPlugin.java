@@ -1,6 +1,8 @@
 package com.easyparty;
 
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.PartyChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
@@ -25,10 +27,12 @@ public class EasyPartyPlugin extends Plugin {
 
     private NavigationButton navigationButton;
 
+    private EasyPartyPanel easyPartyPanel;
+
     @Override
     protected void startUp() throws Exception {
         final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "icon.png");
-        EasyPartyPanel easyPartyPanel = new EasyPartyPanel(partyService);
+        easyPartyPanel = new EasyPartyPanel(partyService);
 
         navigationButton = NavigationButton.builder()
                 .priority(9)
@@ -43,5 +47,11 @@ public class EasyPartyPlugin extends Plugin {
     @Override
     protected void shutDown() throws Exception {
         clientToolbar.removeNavigation(navigationButton);
+    }
+
+    @Subscribe
+    public void onPartyChanged(PartyChanged event) {
+        // When a party gets created through the Party plugin, this will change the party shown in the EasyParty plugin
+        easyPartyPanel.setPartyUUID(event.getPartyId());
     }
 }

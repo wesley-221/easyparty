@@ -30,8 +30,9 @@ public class EasyPartyPanel extends PluginPanel {
     private static final String INVALID_PARTY_ID = "You entered an invalid party id.";
 
     private static final String COPY_SUCCESS = "Copied the party id to your clipboard.";
+    private static final String NO_PARTY_JOINED = "No party joined.";
 
-    private final JLabel currentPartyLabel = new JLabel("No party joined.", SwingConstants.CENTER);
+    private final JLabel currentPartyLabel = new JLabel(NO_PARTY_JOINED, SwingConstants.CENTER);
     private final JLabel messageLabel = new JLabel();
     private final JLabel copySuccessLabel = new JLabel();
 
@@ -147,6 +148,20 @@ public class EasyPartyPanel extends PluginPanel {
 
         add(copySuccessLabel, gridBagConstraints);
         gridBagConstraints.gridy++;
+    }
+
+    /**
+     * Set the value of partyUUID
+     *
+     * @param partyUUID the partyUUID to change to
+     */
+    public void setPartyUUID(UUID partyUUID) {
+        if (partyUUID != null) {
+            this.partyUUID = partyUUID;
+            currentPartyLabel.setText(String.valueOf(partyUUID));
+        } else {
+            currentPartyLabel.setText(NO_PARTY_JOINED);
+        }
     }
 
     /**
